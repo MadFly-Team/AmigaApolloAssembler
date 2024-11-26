@@ -4,7 +4,7 @@
 ;	Project		Apollo V4 development - Shell
 ;	File		Macros.i
 ;	Coder		Neil Beresford
-;	Build envrn	ASMPro V1.20b
+;	Build envrn	ASMPro V1.20b, Visual Code
 ;-----------------------------------------------------------------------------
 ;	Notes
 ;

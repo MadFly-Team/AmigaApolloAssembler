@@ -4,11 +4,11 @@
 ;	Project		Apollo V4 development - Shell
 ;	File		Hardware.s
 ;	Coder		Neil Beresford
-;	Build envrn	ASMPro V1.20b
+;	Build envrn	ASMPro V1.20b, Visual Code
 ;------------------------------------------------------------------------------
-;--MIT License
+;  MIT License
 ;
-; Copyright (c) [year] [fullname]
+; Copyright (c) 2024 Neil Beresford
 ;
 ; Permission is hereby granted, free of charge, to any person obtaining a copy
 ; of this software and associated documentation files (the "Software"), to deal
