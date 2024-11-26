@@ -19,9 +19,9 @@
 ; Checks d0 - not zero will jump to label
 ;-----------------------------------------------------------------------------
 FAILTO MACRO	
-		cmp.b	#0,d0
-		bne		\1
-		ENDM
+    cmp.b #0,d0
+    bne  \1
+    ENDM
 
 
 

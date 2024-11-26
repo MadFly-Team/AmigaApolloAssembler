@@ -14,14 +14,14 @@
 ; Defines
 ;-----------------------------------------------------------------------------
 
-MASKFIRSTTWOBITS		=	$00000003
+MASKFIRSTTWOBITS = $00000003
 
 ;-----------------------------------------------------------------------------
 ; Code
 ;-----------------------------------------------------------------------------
 
 
-	SECTION utils,CODE_F	
+    SECTION utils,CODE_F	
 
 ;-----------------------------------------------------------------------------
 
@@ -40,37 +40,37 @@ MASKFIRSTTWOBITS		=	$00000003
 ;----------------------------------------------------------
 UtilsModule_ClearMem:
 
-	movem.l	d0-d2/a0,-(SP)
+    movem.l d0-d2/a0,-(SP)
 
 	; D0 - Total amount to clear
 	; A0 - Pointer to the start of memory	
 
 	; Clear the ints first...
 
-	clr.l	d2
-	move.l	d0,d1
+    clr.l  d2
+    move.l d0,d1
 
-	asl.l	#2,d0
+    asl.l  #2,d0
 
 .longs:
 
-	move.l	d2,(a0)+
-	dbpl	d0,.longs	
+    move.l d2,(a0)+
+    dbpl   d0,.longs	
 
 	; now the old bytes at the end
 	
-	and.l	#MASKFIRSTTWOBITS,d1
-	beq.s	.longs
+    and.l  #MASKFIRSTTWOBITS,d1
+    beq.s  .longs
 	
 .bytes:	
 
-	move.b	d2,(A0)+
-	dbpl	d1,.bytes	
+    move.b d2,(A0)+
+    dbpl   d1,.bytes	
 
 .end:
 
-	movem.l (SP)+,d0-d2/a0
-	rts
+    movem.l (SP)+,d0-d2/a0
+    rts
 
 ;-----------------------------------------------------------------------------
 ; Data

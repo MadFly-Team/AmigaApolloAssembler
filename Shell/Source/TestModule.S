@@ -14,7 +14,7 @@
 ; Code
 ;-----------------------------------------------------------------------------
 
-	SECTION test,CODE_C
+    SECTION test,CODE_C
 
 ;-----------------------------------------------------------------------------
 
@@ -25,20 +25,20 @@
 ;----------------------------------------------------------
 TestModule_FillScreen:
 
-	movem.l	d0-d1/a0,-(SP)
+    movem.l d0-d1/a0,-(SP)
 
-	move.l	#$00010203,d1
-	move.l	#((SCREENWIDTH*SCREENHEIGHT)/4)-1,d0
-	move.l	screenPtr,a0
+    move.l #$00010203,d1
+    move.l #((SCREENWIDTH*SCREENHEIGHT)/4)-1,d0
+    move.l screenPtr,a0
 
 .loop:	
 
-	move.l	d1,(a0)+
-	addi.l	#$04040404,d1
-	dbra	d0,.loop
+    move.l d1,(a0)+
+    addi.l #$04040404,d1
+    dbra   d0,.loop
 
-	movem.l (SP)+,d0-d1/a0
-	rts
+    movem.l (SP)+,d0-d1/a0
+    rts
 
 
 

@@ -18,12 +18,12 @@
 
 ; Screen setup
 
-SCREENWIDTH 		= 320							; Screen width
-SCREENHEIGHT 		= 256							; Screen height
-SCREENSIZE 		= SCREENWIDTH*SCREENHEIGHT		; Size of screen in pixels
-SCREENCOLORDEPTH 	= 8								; 256 colours
-SCREENMODE 		= $0301							; Set to 320x256 mode
-SCREENCLEARCOLOUR	= $98989898						; Set to a light green
+SCREENWIDTH       = 320 ; Screen width
+SCREENHEIGHT      = 256 ; Screen height
+SCREENSIZE        = SCREENWIDTH*SCREENHEIGHT ; Size of screen in pixels
+SCREENCOLORDEPTH  = 8 ; 256 colours
+SCREENMODE        = $0301 ; Set to 320x256 mode
+SCREENCLEARCOLOUR = $98989898 ; Set to a light green
 
 ;-----------------------------------------------------------------------------
 ; End of file: Defines.i

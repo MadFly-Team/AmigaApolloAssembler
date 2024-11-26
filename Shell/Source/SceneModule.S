@@ -14,7 +14,7 @@
 ; Code
 ;-----------------------------------------------------------------------------
 
-	SECTION scene,CODE_C
+    SECTION scene,CODE_C
 
 ;-----------------------------------------------------------------------------
 ; Defines - Internal to SceneModule
@@ -29,10 +29,10 @@
 ;----------------------------------------------------------
 SceneModule_Init:
 
-	movem.l	d0-d1/a0,-(SP)
+    movem.l d0-d1/a0,-(SP)
 
-	movem.l (SP)+,d0-d1/a0
-	rts
+    movem.l (SP)+,d0-d1/a0
+    rts
 
 ;----------------------------------------------------------
 ; SceneModule_Process
@@ -40,10 +40,10 @@ SceneModule_Init:
 ;----------------------------------------------------------
 SceneModule_Process:
 
-	movem.l	d0-d1/a0,-(SP)
+    movem.l d0-d1/a0,-(SP)
 
-	movem.l (SP)+,d0-d1/a0
-	rts
+    movem.l (SP)+,d0-d1/a0
+    rts
 
 ;----------------------------------------------------------
 ; SceneModule_Exit
@@ -51,10 +51,10 @@ SceneModule_Process:
 ;----------------------------------------------------------
 SceneModule_Exit:
 
-	movem.l	d0-d1/a0,-(SP)
+    movem.l d0-d1/a0,-(SP)
 
-	movem.l (SP)+,d0-d1/a0
-	rts
+    movem.l (SP)+,d0-d1/a0
+    rts
 
 ;-----------------------------------------------------------------------------
 ; Data
