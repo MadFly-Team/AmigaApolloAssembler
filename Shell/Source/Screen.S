@@ -70,7 +70,7 @@ Screen_Gradient:
     movem.l d0-d2/a0,-(SP)
 
     move.l screenPtr,a0
-    moveq  #-1,d2
+    moveq  #0,d2
 
     move.l #SCREENHEIGHT-1,d1
 
@@ -83,7 +83,7 @@ Screen_Gradient:
     move.l d2,(a0)+
     dbra   d0,.loop
 
-    sub.l  #$01010101,d2
+    add.l  #$01010101,d2
     dbra   d1,.lines
 
     movem.l (SP)+,d0-d2/a0
@@ -107,8 +107,7 @@ Screen_Test:
 
     move.b d1,(a0)+
     add.b  #1,d1
-    sub.l  #1,d0
-    bne.b  .loop	
+    dbpl.b  .loop	
 
     movem.l (SP)+,d0-d1/a0
     rts

@@ -49,7 +49,6 @@ MMMODE_SIZE            = 16
 
 MM_TOTALMODES          = 10
 
-
 ;-----------------------------------------------------------------------------
 
 ;----------------------------------------------------------
@@ -58,6 +57,23 @@ MM_TOTALMODES          = 10
 ;----------------------------------------------------------
 ManagerModule_Init:
 
+    movem.l d0-d1/a0,-(SP)
+
+    clr.l  d0
+    
+    ; clear the control struct
+    move.l d0,MMCtrl
+
+    ; clear the mode store
+    lea    MMModeStore,a0
+    move.l #MM_TOTALMODES*MMMODE_SIZE,d1
+
+.clearModeStore:
+
+    move.b d0,(a0)+ 
+    dbf    d1,.clearModeStore
+
+    movem.l (SP)+,d0-d1/a0
     rts
 
 
@@ -66,6 +82,29 @@ ManagerModule_Init:
 ; Process a game loop within the manager module
 ;----------------------------------------------------------
 ManagerModule_Process:
+
+    cpm.l  #0,MMCTRL_NUMBERMODES(MMCtrl)
+    beq.s  .notRunning
+    cpm.l  #0,MMCTRL_RUNNING(MMCtrl)
+    beq.s  .notRunning
+
+    movem.l d0-d1/a0-a2,-(SP)
+
+    ; get the active mode
+    lea    MMCtrl,a2
+    move.b MMCTRL_ACTIVEMODEINDEX(a2),d0
+    moveq  #MMMODE_SIZE,d1
+    mulu   d0,d1
+    lea    MMModeStore,a1
+    add.l  d1,a1
+
+
+
+.end:
+
+    movem.l (SP)+,d0-d1/a0-a2
+
+.notRunning:
 
     rts
 
@@ -76,7 +115,30 @@ ManagerModule_Process:
 ManagerModule_Exit:
 
     rts
-	
+
+
+;----------------------------------------------------------
+; ManagerModule_SetMode
+; Terminates the manager module
+;----------------------------------------------------------
+ManagerModule_SetMode:
+    movem.l d0-d1/a0-a2,-(SP)
+
+    lea    MMCtrl,a2
+    cmp.b  #0,MMCTRL_TRANSITION(a2)
+    bne.s  .end
+    cmp.b  #0,MMCTRL_RUNNING(a2)
+    beq.s .setMode
+
+.setMode:
+
+; D0 = mode index
+
+    lea    MMCtrl,a2
+    move.b d0,MMCTRL_ACTIVEMODEINDEX(a2)
+    movem.l (SP)+,d0-d1/a0-a2
+    rts
+
 
 ;----------------------------------------------------------
 ; ManagerModule_RegisiterMode
@@ -102,7 +164,7 @@ ManagerModule_RegisterMode:
 	; check the data to make sure things have been set
 
     clr.l  d1
-
+	
     cmp.l  #0,MMMODE_FNINIT(a0)
     beq.s  .end
     cmp.l  #0,MMMODE_FNPROCESS(a0)
@@ -160,9 +222,13 @@ MMCtrl:
     dc.b   0                                    ; 01 Current active mode
     dc.b   0                                    ; 02 Module running or paused
     dc.b   0                                    ; 03 Module in transistion state
-	
-; Store of possible registered modes
+    dc.l   0                                    ; 04 pointer to the current mode struct
 
+
+    EVEN
+
+
+; Store of possible registered modes
 MMModeStore:
 
     ds.b   MM_TOTALMODES*MMMODE_SIZE            ; Store for the registered modes

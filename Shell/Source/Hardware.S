@@ -77,7 +77,8 @@ CLOSELIBRARY       EQU -414
 OPENSCREENTAGLIST  EQU -$264
 BESTCMODEIDTAGLIST EQU -60
 VPOSR              EQU $dff004
-VPOSRCHIPIDMASK    EQU $0f		
+VPOSRCHIPIDMASK    EQU $0f
+MINOSVERSION       EQU $39
 
 ;-----------------------------------------------------------------------------
 ; Code
@@ -123,7 +124,7 @@ Hardware_InitSystem:
 
     move.l $4.w,A6                                   ; execbase
     lea    intuitionname,A1
-    moveq  #39,D0                                    ; Min OS 3
+    moveq  #MINOSVERSION,D0                         ; Min OS 3
     jsr    OPENLIBRARY(A6)                           ; open library
     tst.l  D0
     beq.w  .failedEnd

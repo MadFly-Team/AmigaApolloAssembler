@@ -55,34 +55,13 @@
 ;SCREENHEIGHT	= 256
 ;SCREENSIZE		= SCREENWIDTH*SCREENHEIGHT
 
-;-----------------------------------------------------------------------------
-; Test area
-;-----------------------------------------------------------------------------
-
-;FontModule_Test:
-
-;	movem.l	d1-a6,-(SP)
-;	lea		screen,a0
-;	move.l	a0,screenPtr
-	
-;	move.l	#10,d0						; X pos
-;	move.l	#20,d1						; Y pos
-;	lea		TestString,a0				; String to display
-;	jsr		FontModule_DisplayString
-
-
-;	move.l	#10,d0						; X pos
-;	move.l	#2,d1						; Y pos
-;	move.l	#$abcdef90,d2				; 32 bit value to be displayed as hex
-;	jsr		FontModule_DisplayHex
-
-;	movem.l (SP)+,d1-a6
-;	moveq	#0,d0
-;	rts
+FMDEFAUTOCOL	    = $99
+FMPRINTCF           = $10
+FMCOMMANDCOLCHANGE  = $95
 
 ;-----------------------------------------------------------------------------
-
-;	ENDIF
+; Functionaly 
+;-----------------------------------------------------------------------------
 
 ;----------------------------------------------------------
 ; FontModule_DisplayString
@@ -97,14 +76,14 @@ FontModule_DisplayString:
     movem.l d0-a6,-(SP)
     move.l d0,d3
     clr.l  d2
-    move.b #$99,fontCol 
+    move.b #FMDEFAUTOCOL,fontCol 
 .print:
     move.b (a0)+,d2
     beq    .endPrint
 
 	; check for carrage return
 
-    cmp.b  #10,d2
+    cmp.b  #FMPRINTCF,d2
     bne.s  .checkMisc
     move.l d3,d0
     add    #8,d1
@@ -112,7 +91,7 @@ FontModule_DisplayString:
 	
 .checkMisc:
 
-    cmp.b  #$99,d2
+    cmp.b  #FMCOMMANDCOLCHANGE,d2
     bne.s  .continue
     move.b (a0)+,fontCol
     bra.s  .print
