@@ -1,0 +1,11 @@
+# -----------------------------------------------------------------------------
+# Settings for clang-format
+# -----------------------------------------------------------------------------
+BasedOnStyle: LLVM
+Language: ASM
+SortIncludes: Never
+UseTab: Never
+IndentWidth: 4
+TabWidth: 4
+ColumnLimit: 140
+
